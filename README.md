@@ -72,7 +72,7 @@
 - query_openai.py
     - openai api를 이용해 쿼리를 보내고 답변과 성공 여부를 기록하는 코드 포함.
     - queryQuestion(model_name, spam_data_list)
-        - openai API가 지원하는 model_name ([참조]()) 과 TextMessage 인스턴스들을 원소로 가지는 spam_data_list를 입력으로 받음.
+        - openai API가 지원하는 model_name ([참조](https://platform.openai.com/docs/models/overview)) 과 TextMessage 인스턴스들을 원소로 가지는 spam_data_list를 입력으로 받음.
         - TextMessage 들 중 TextMessage.query_succeed == False 인 원소들만을 필터링해 쿼리를 날림.
         - 이후 응답을 받는데 성공하면 TextMessage.query_succeed를 True로 설정하고 TextMessage.query_response에 응답 내용을 기록
 
