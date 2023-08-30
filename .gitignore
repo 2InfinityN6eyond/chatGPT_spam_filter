@@ -1,0 +1,7 @@
+._*
+*.csv
+*.zip
+*.json
+~*
+__pycache__/
+openai_api_keys.json
