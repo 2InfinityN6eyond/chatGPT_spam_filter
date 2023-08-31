@@ -22,11 +22,13 @@ class TextMessage :
 
     def parseRawInput(self, input_txt_lines) :
         time_str1, time_str2, self.label, self.content = input_txt_lines[0].split("[(KISA)]")
-        self.time1 = datetime.datetime.strptime(time_str1.removeprefix("[(KISA:SOL)]"), "%Y%m%d%H%M")
+        #self.time1 = datetime.datetime.strptime(time_str1.removeprefix("[(KISA:SOL)]"), "%Y%m%d%H%M")
+        self.time1 = datetime.datetime.strptime(time_str1.replace("[(KISA:SOL)]", ""), "%Y%m%d%H%M")
         self.time2 = datetime.datetime.strptime(time_str2, "%Y%m%d%H%M")
         for line in input_txt_lines[1:-1] :
             self.content += line
-        self.title = input_txt_lines[-1].removesuffix("[(KISA:EOL)]\n")
+        #self.title = input_txt_lines[-1].removesuffix("[(KISA:EOL)]\n")
+        self.title = input_txt_lines[-1].replace("[(KISA:EOL)]\n", "")
 
 
     def toDict(self) :
@@ -47,8 +49,16 @@ def parseKISASpamDataFile(file_path) :
     """
     kisa 에서 제공하는 스팸 데이터 파일을 파싱한다.
     """
-    with open(file_path, "r") as fp :
-        data_raw = fp.readlines()[1:]
+    try :
+        with open(file_path, "r", encoding="utf-8") as fp :
+            data_raw = fp.readlines()[1:]
+    except UnicodeDecodeError as e :
+        print(e)
+        print("utf-8 encoding failed. trying to open file with cp949 encoding")
+        with open(file_path, "r", encoding="cp949") as fp :
+            data_raw = fp.readlines()[1:]
+
+        
 
     SOL_IDX_LIST = list(filter(
         lambda x : False if x is False else True,
