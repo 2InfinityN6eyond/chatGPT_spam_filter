@@ -76,6 +76,9 @@
         - TextMessage 들 중 TextMessage.query_succeed == False 인 원소들만을 필터링해 쿼리를 날림.
         - 이후 응답을 받는데 성공하면 TextMessage.query_succeed를 True로 설정하고 TextMessage.query_response에 응답 내용을 기록
 
+- ieee_experiments.py
+    - KISA 제공 스팸메시지 csv 파일을 파싱하여 chatGPT에게 문자메시지가 스팸인지 햄인지 질문하는 쿼리를 전송하고, 결과를 저장
+    - connection timeout 등의 이유로 에러가 발생하였을 때 예외처리 기능이 포함됨
 
 
 ## Usage
@@ -98,4 +101,4 @@ mkdir results
 ```
 
 - query_chatGPT.ipynb 노트북을 실행시키면 됩니다.
-- 워드 파일에 명시된 실험용 코드는 아직 작업중입니다.
+- ieee_experiments.py 파일이 같은 내용을 담고 있습니다.
